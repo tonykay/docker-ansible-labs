@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------------
+# Run in background: 
+#     docker-compose up -d
+#
+# Check status: 
+#     docker-compose ps
+#
+# View logs of service ssh.pool-1.1.1: 
+#     docker-compose logs ssh.pool-1.1.1
+# -----------------------------------------------------------------------------
+
+jumpbox:
+  image: "jdeathe/centos-ssh:centos-7"
+  container_name: "jumpbox"
+  ports:
+    - "2020:22"
+
+target1:
+  image: "jdeathe/centos-ssh:centos-7"
+  container_name: "target1"
+  ports:
+    - "2021:22"

@@ -1,0 +1,12 @@
+== Ansible Lab using Docker
+
+A lightweight centos based Ansible Lab using Docker.
+
+
+== TODO
+
+- setup a root user/password?
+- setup simplified networking
+  Assign static, predicatble addresses?
+- setup a dynamic inventory?
+- add a  simple mount point?
