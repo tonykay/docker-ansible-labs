@@ -1,0 +1,50 @@
+---
+- name: create a docker three tier app environment
+  hosts: localhost
+  gather_facts: false
+  become: false
+  vars:
+    - docker_network: three-tier-tier-network
+    - docker_subnet: '172.3.26.0/16'
+    - docker_image: jdeathe/centos-ssh:centos-7
+
+  tasks:
+
+  - name: create a {{ docker_network }} with options
+    docker_network:
+      name: "{{ docker_network }}"
+      driver_options:
+        com.docker.network.bridge.name: 3tier
+      ipam_options:
+        subnet: '172.3.26.0/16'
+        gateway: 172.3.26.1
+
+  - name: create jumpbox host 
+    docker_container:
+      name: bastion
+      image: "{{ docker_image }}"
+      ports:
+             - "22:22"
+      networks:
+        - name: "{{ docker_network }}"
+          ipv4_address: "172.3.26.2"
+      env:
+        SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+        SSH_USER: vagrant
+
+
+  - name: create lab hosts 
+    docker_container:
+      name: "{{ item.name }}"
+      image: "{{ docker_image }}"
+      networks:
+        - name: "{{ docker_network }}"
+          ipv4_address: "{{ item.ip }}"
+      env:
+        SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+        SSH_USER: vagrant
+    with_items:
+      - { name: frontend, ip: 172.3.26.3 }
+      - { name: app1, ip: 172.3.26.4 }
+      - { name: app2, ip: 172.3.26.5 }
+      - { name: appdb1, ip: 172.3.26.6 }
