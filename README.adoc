@@ -1,12 +1,23 @@
 == Ansible Lab using Docker
 
-A lightweight centos based Ansible Lab using Docker.
+A lightweight Centos based Ansible Lab using Docker.
+
+
+=== Overview
+
+Brings up <n> docker containers all running ssh and using vagrant/vagrant insecure key.
+
+First container is `bastion` and acts as a jumphost for the remainder. 
+
+
 
 
 == TODO
 
-- setup a root user/password?
-- setup simplified networking
+* Automate creation of containers and inventory file
+**
+* setup a root user/password?
+* setup simplified networking
   Assign static, predicatble addresses?
-- setup a dynamic inventory?
-- add a  simple mount point?
+* setup a dynamic inventory?
+* add a  simple mount point?
