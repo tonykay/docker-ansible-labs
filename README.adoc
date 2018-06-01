@@ -1,0 +1,16 @@
+== Ansible Lab using Docker
+
+Simple labs using docker and provisioned by Ansible for Ansible
+
+First container, `bastion` acts as a jumphost and includes pre-configured ssh.cfg
+
+=== Overview
+
+Labs come up with `ansible-playbook main.yml`
+The Dockerfile is there as a courtesy and is not used.
+Still a work in progress - including this readme!
+
+== TODO
+
+* setup a dynamic inventory?
+* add a  simple mount point?
