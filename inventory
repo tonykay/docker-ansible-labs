@@ -1,3 +1,12 @@
-[jumpbox]
-jump1 ansible_host=127.0.0.1 ansible_port=2020
+[bastions]
+bastion 
 
+[frontends]
+frontend1 ansible_host=172.3.26.3
+
+[apps]
+app1 ansible_host=172.3.26.4
+app2 ansible_host=172.3.26.5
+
+[appdbs]
+appdb1 ansible_host=172.3.26.6
