@@ -4,15 +4,15 @@
   gather_facts: false
   become: false
   vars:
-    docker_network: three-tier-tier-network
-    docker_subnet: '172.3.26.0/16'
-    docker_image: jdeathe/centos-ssh:centos-7
+    docker_network:   three-tier-tier-network
+    docker_subnet:    172.3.26.0/16
+    docker_image:     jdeathe/centos-ssh:centos-7
     lab_machines:
-    - { name: bastion,    ip: 172.3.26.2, port_maps: "22:22",   group: bastions }
-    - { name: frontend1,  ip: 172.3.26.3, port_maps: "2223:22", group: frontends }
-    - { name: app1,       ip: 172.3.26.4, port_maps: "2224:22", group: apps }
-    - { name: app2,       ip: 172.3.26.5, port_maps: "2225:22", group: apps }
-    - { name: appdb1,     ip: 172.3.26.6, port_maps: "2226:22", group: appdbs }
+      - { name: bastion,    ip: 172.3.26.2, port_maps: '22:22',   group: bastions }
+      - { name: frontend1,  ip: 172.3.26.3, port_maps: '2223:22', group: frontends }
+      - { name: app1,       ip: 172.3.26.4, port_maps: '2224:22', group: apps }
+      - { name: app2,       ip: 172.3.26.5, port_maps: '2225:22', group: apps }
+      - { name: appdb1,     ip: 172.3.26.6, port_maps: '2226:22', group: appdbs }
 
   tasks:
 
@@ -30,7 +30,7 @@
       name: "{{ item.name }}"
       image: "{{ docker_image }}"
       ports:
-             - "{{ item.port_maps }}"
+        "{{ item.port_maps }}"
       networks:
         - name: "{{ docker_network }}"
           ipv4_address: "{{ item.ip }}"
@@ -39,5 +39,3 @@
         SSH_USER: vagrant
     with_items: "{{ lab_machines }}"
 
-    #  - name: write inventory
-    #    template:
