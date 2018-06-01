@@ -4,9 +4,14 @@
   gather_facts: false
   become: false
   vars:
-    - docker_network: three-tier-tier-network
-    - docker_subnet: '172.3.26.0/16'
-    - docker_image: jdeathe/centos-ssh:centos-7
+    docker_network: three-tier-tier-network
+    docker_subnet: '172.3.26.0/16'
+    docker_image: jdeathe/centos-ssh:centos-7
+    lab_machines:
+      - { name: frontend, ip: 172.3.26.3 }
+      - { name: app1, ip: 172.3.26.4 }
+      - { name: app2, ip: 172.3.26.5 }
+      - { name: appdb1, ip: 172.3.26.6 }
 
   tasks:
 
@@ -43,8 +48,5 @@
       env:
         SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
         SSH_USER: vagrant
-    with_items:
-      - { name: frontend, ip: 172.3.26.3 }
-      - { name: app1, ip: 172.3.26.4 }
-      - { name: app2, ip: 172.3.26.5 }
-      - { name: appdb1, ip: 172.3.26.6 }
+    with_items: "{{ lab_machines }}"
+
