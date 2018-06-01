@@ -10,14 +10,7 @@ Brings up <n> docker containers all running ssh and using vagrant/vagrant insecu
 First container is `bastion` and acts as a jumphost for the remainder. 
 
 
-
-
 == TODO
 
-* Automate creation of containers and inventory file
-**
-* setup a root user/password?
-* setup simplified networking
-  Assign static, predicatble addresses?
 * setup a dynamic inventory?
 * add a  simple mount point?
