@@ -1,25 +1,52 @@
 == Ansible Lab Environment using Docker
 
-A lightweight Centos based Ansible Lab using Docker. 
+A lightweight Centos based Ansible Lab using Docker. Creates a Docker ssh
+container based lab fully configured with localhost to container networking.
 
-Creates a Docker ssh container based lab fully configured with localhost to container netw
+You get:
 
 * A bastion host/jumpbox 
-** by default using user vagrant and vagrant insecure key
 * An arbritrary number of centos/ssh containers
-* A lab directory, containing:
+** by default using user vagrant and vagrant insecure key
+* A lab directory containing your:
+** inventory file: `hosts`
+** pre-configured `ansible.cfg` (inventory and ssh)
+** ssh directory: with insecure vagrant key and 2 ssh.cfg files 
+* ssh access is automatically created and supports:
+** direct, via port mapping, default setup via `ssh.cfg`
+** via jumphost 1st docker container using `ssh-jumphost.cfg`
+* docker utilities aliases automatically created
+* `source utilities/docker_aliases.env` creates:
+** lab-stop (via `docker stop` container names`)
+** lab-destroy (via `docker rm container names`) 
+
+== Usage and Workflow
+
+. Define your lab in `lab_vars.yml`
+. `ansible-playbook main.yml`
+. That's it `labs/` contains:
 [source,bash]
 ----
 lab
 ├── ansible.cfg
-├── inventory
-└── ssh.cfg
+├── hosts
+├── ssh
+│   ├── insecure_private_key
+│   ├── ssh-jumpbox.cfg
+│   └── ssh.cfg
+└── utilities
+    └── docker_aliases.env
 ----
 
-== Usage
 
 All access assumes localhost is the control node and has the necessary ssh
-key(s). By default it uses vagrant insecure key
+key(s). By default it uses vagrant insecure key and connects via `ssh/ssh.cfg`
+which automatically uses port mapping. i.e. all targets are access via
+locahost:port.
+
+If you prefer to use the first container as an ssh jumphost an alternative ssh
+confiration files, `ssh-jumphost.cfg` is automatically generated and can be
+pointed to via ansible.cfg
 
 NOTE: the bastion host does *not* have a copy of this key so all `ssh` access is
 via 
@@ -29,30 +56,23 @@ This is a much cleaner syntax but if you are running a version of `ssh` prior to
 `OpenSSH 7.3`:
 * Seriously think about upgrading!
 * Use ProxyCommand instead, something like...
-+
 [source,bash]
 ----
 ProxyCommand ssh vagrant@bastion -W %h:%p
 ----
 
+== ssh access
+
+`ssh` access is simple:
+[source,bash]
+----
+lab $ ssh -F ssh/ssh.cfg <container-name>
+----
 
 == Requirements
-+
 [source,bash]
 ----
 docker-py
 ----
-== TODOdd
-** static inventory file
-** bare bones ansible.cfg
-** an ssh.cfg pre-configured 
-
-
-=== Overview
-
-Brings up <n> docker containers all running ssh and using vagrant/vagrant insecure key.
-
-First container is `bastion` and acts as a jumphost for the remainder. 
-
 
 

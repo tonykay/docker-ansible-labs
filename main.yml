@@ -53,6 +53,17 @@
       src: templates/lab_inventory.j2
       dest: "{{ lab_directory }}/hosts"
 
+  - name: copy vagrant key to lab/ssh
+    fetch:
+      src: ./ssh/insecure_private_key
+      dest: "{{ lab_directory }}/ssh/insecure_private_key"
+      flat: true
+
+  - name: set vagrant insecure ssh key permissions
+    file: 
+      path: "{{ lab_directory }}/ssh/insecure_private_key"
+      mode: 0400
+
   - name: write ansible lab config files
     template:
       src: "templates/{{ item.file }}.j2"
