@@ -1,0 +1,10 @@
+---
+- name: confirm all hosts alive and reachable via ping
+  hosts: all
+  gather_facts: false
+  become: false
+
+  tasks:
+
+  - name: ping inventory
+    ping:
