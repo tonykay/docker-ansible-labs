@@ -1,13 +1,13 @@
-{% for item in lab_machines %}
+Host bastion
+  HostName 127.0.0.1
+
+{% for item in lab_machines[1:] %}
 Host {{ item.name }}
   HostName {{ item.ip }}
 
 {%   endfor %}
-
-Host 172.3.26.* 
-  ProxyJump bastion
-
 Host *
+  ProxyJump bastion
   User vagrant
   IdentityFile  ~/.vagrant.d/insecure_private_key
   ControlMaster auto

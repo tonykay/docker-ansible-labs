@@ -2,8 +2,8 @@
 
 
 [all]
-appdb1 
 bastion 
+appdb1 
 frontend1 
 app1 
 app2 
