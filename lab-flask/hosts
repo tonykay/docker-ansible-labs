@@ -1,0 +1,14 @@
+; Ansible managed
+
+
+[ungrouped]
+
+[all]
+postgres 
+flask 
+
+[flasks]
+flask 
+
+[databases]
+postgres 

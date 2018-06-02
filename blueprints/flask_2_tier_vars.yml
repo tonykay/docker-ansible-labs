@@ -1,0 +1,23 @@
+---
+ansible_managed:      This file was automatically created by Ansible, and may be over-written
+
+# Where your lab env will be created (with inventory, ansible.cfg, ssh.cfg etc)
+
+lab_directory:        lab-flask
+
+# Docker network vars:
+
+docker_network:       flask_2_tier
+docker_bridge_name:   flask_2_tier_br
+docker_subnet:        172.4.27.0/16
+docker_gateway:       172.4.27.1
+
+# Use an ssh enabled docker container
+
+docker_image:         jdeathe/centos-ssh:centos-7
+
+# Define your lab:
+
+lab_machines:
+  - { name: flask,    ip: 172.4.27.2, port_maps: "2423:22", group: flasks }
+  - { name: postgres, ip: 172.4.27.3, port_maps: "2424:22", group: databases }
