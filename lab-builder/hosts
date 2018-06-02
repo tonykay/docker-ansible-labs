@@ -2,11 +2,11 @@
 bastion 
 
 [frontends]
-frontend1 ansible_host=172.3.26.3
+frontend1 
 
 [apps]
-app1 ansible_host=172.3.26.4
-app2 ansible_host=172.3.26.5
+app1 
+app2
 
 [appdbs]
-appdb1 ansible_host=172.3.26.6
+appdb1
