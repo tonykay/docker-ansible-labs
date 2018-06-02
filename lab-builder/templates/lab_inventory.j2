@@ -1,9 +1,9 @@
-{{ ansible_managed }}
+;{{ ansible_managed }}
 
 {% for item in groups %}
 
 [{{item}}]
 {%   for entry in groups[item] %}
-{{ entry }}
+{{ entry }} 
 {%   endfor %}
 {% endfor %}

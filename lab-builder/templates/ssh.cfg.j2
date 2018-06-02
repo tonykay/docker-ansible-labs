@@ -1,17 +1,11 @@
-Host bastion
-  HostName 127.0.0.1
-
 {% for item in lab_machines %}
 Host {{ item.name }}
-  Hostname {{ item.ip }}
+  Port {{ item.port_maps | regex_replace('\:22','') }}
 
 {%   endfor %}
 
-
-Host 172.3.26.* 
-  ProxyJump bastion
-
 Host *
+  HostName 127.0.0.1
   User vagrant
   IdentityFile  ~/.vagrant.d/insecure_private_key
   ControlMaster auto

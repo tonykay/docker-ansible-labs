@@ -16,6 +16,26 @@ lab
 └── ssh.cfg
 ----
 
+== Usage
+
+All access assumes localhost is the control node and has the necessary ssh
+key(s). By default it uses vagrant insecure key
+
+NOTE: the bastion host does *not* have a copy of this key so all `ssh` access is
+via 
+
+NOTE: The auto generated `ssh.cfg` uses ProxyJump in preference to ProxyCommand.
+This is a much cleaner syntax but if you are running a version of `ssh` prior to
+`OpenSSH 7.3`:
+* Seriously think about upgrading!
+* Use ProxyCommand instead, something like...
++
+[source,bash]
+----
+ProxyCommand ssh vagrant@bastion -W %h:%p
+----
+
+
 == Requirements
 +
 [source,bash]

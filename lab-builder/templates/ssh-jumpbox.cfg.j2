@@ -1,21 +1,13 @@
-Host bastion
-  Port 22
+{% for item in lab_machines %}
+Host {{ item.name }}
+  HostName {{ item.ip }}
 
-Host frontend1
-  Port 2223
+{%   endfor %}
 
-Host app1
-  Port 2224
-
-Host app2
-  Port 2225
-
-Host appdb1
-  Port 2226
-
+Host 172.3.26.* 
+  ProxyJump bastion
 
 Host *
-  HostName 127.0.0.1
   User vagrant
   IdentityFile  ~/.vagrant.d/insecure_private_key
   ControlMaster auto

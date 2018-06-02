@@ -61,6 +61,7 @@
     with_items:  
       - ansible.cfg
       - ssh.cfg  
+      - ssh-jumpbox.cfg  
     tags:
       - file_gen    
 

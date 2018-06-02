@@ -1,24 +1,24 @@
-Ansible managed
+;Ansible managed
 
 
 [all]
-bastion
-appdb1
-frontend1
-app1
-app2
+appdb1 
+bastion 
+frontend1 
+app1 
+app2 
 
 [bastions]
-bastion
+bastion 
 
 [appdbs]
-appdb1
+appdb1 
 
 [apps]
-app1
-app2
+app1 
+app2 
 
 [ungrouped]
 
 [frontends]
-frontend1
+frontend1 
