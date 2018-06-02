@@ -3,8 +3,8 @@
   hosts: localhost
   gather_facts: false
   become: false
-  vars:
-    docker_network:   three_tier_network
+  vars_files:
+    - lab_vars.yml  
 
   tasks:
 
@@ -14,8 +14,8 @@
       driver_options:
         com.docker.network.bridge.name: 3tier
       ipam_options:
-        subnet: '172.3.26.0/16'
-        gateway: 172.3.26.1
+        subnet: "{{ docker_subnet }}"
+        gateway: "{{ docker_gateway }}"
     tags:
       - create_lab_network
 
@@ -42,8 +42,6 @@
       - create_in-memory_inventory
 
   - name: write static inventory file
-    #become: yes
-    sudo: yes
     template:
       src: templates/lab_inventory.j2
       dest: lab_inventory
