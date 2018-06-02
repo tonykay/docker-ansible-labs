@@ -3,8 +3,8 @@ Ansible managed
 
 [all]
 bastion
-frontend1
 appdb1
+frontend1
 app1
 app2
 

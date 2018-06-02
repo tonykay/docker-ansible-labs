@@ -1,11 +1,22 @@
 ---
-ansible_managed:  This file was automatically created by Ansible, and may be over-written
+ansible_managed:      This file was automatically created by Ansible, and may be over-written
 
-docker_network:   three_tier_network
-docker_subnet:    172.3.26.0/16
-docker_gateway:   172.3.26.1
+# Where your lab env will be created (with inventory, ansible.cfg, ssh.cfg etc)
 
-docker_image:     jdeathe/centos-ssh:centos-7
+lab_directory:        lab
+
+# Docker network vars:
+
+docker_network:       three_tier_network
+docker_bridge_name:   3tier
+docker_subnet:        172.3.26.0/16
+docker_gateway:       172.3.26.1
+
+# Use an ssh enabled docker container
+
+docker_image:         jdeathe/centos-ssh:centos-7
+
+# Define your lab:
 
 lab_machines:
   - { name: bastion,    ip: 172.3.26.2, port_maps: "22:22",   group: bastions }

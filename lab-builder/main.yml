@@ -12,7 +12,7 @@
     docker_network:
       name: "{{ docker_network }}"
       driver_options:
-        com.docker.network.bridge.name: 3tier
+        com.docker.network.bridge.name: "{{ docker_bridge_name }}"
       ipam_options:
         subnet: "{{ docker_subnet }}"
         gateway: "{{ docker_gateway }}"
@@ -41,12 +41,28 @@
     tags:
       - create_in-memory_inventory
 
+  - name: create lab directory
+    file:
+      path: "{{ lab_directory }}"
+      state: directory
+      mode: 0755
+
   - name: write static inventory file
     template:
       src: templates/lab_inventory.j2
-      dest: lab_inventory
+      dest: "{{ lab_directory }}/hosts"
     tags:
       - write_static_inventory
+
+  - name: write ansible lab config files
+    template:
+      src: "templates/{{ item }}.j2"
+      dest: "{{ lab_directory }}/{{ item }}"
+    with_items:  
+      - ansible.cfg
+      - ssh.cfg  
+
+  - name: create lab main.yml only if absent from lab directory      
 
 
 - name: smoke test lab
