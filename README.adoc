@@ -20,6 +20,14 @@ You get:
 ** lab-stop (via `docker stop` container names`)
 ** lab-destroy (via `docker rm container names`) 
 
+=== blueprints directory
+Contains example configurations. These can be consumed:
+[source,bash]
+----
+ansible-playbook main.yml -e @blueprints/flask_2_tier_vars.yml
+----
+
+
 == Usage and Workflow
 
 . Define your lab in `lab_vars.yml`
