@@ -3,4 +3,9 @@
 inventory                   = hosts
 
 [ssh_connection]
-ssh_args                    = -F ssh.cfg
+ssh_args                    = -F ssh/ssh.cfg
+
+# Replace the above if you want to use a jumpbox
+#
+#ssh_args                    = -F ssh/ssh-jumpbox.cfg
+

@@ -41,11 +41,15 @@
     tags:
       - create_in-memory_inventory
 
-  - name: create lab directory
+  - name: create lab structure
     file:
-      path: "{{ lab_directory }}"
+      path: "{{ item }}"
       state: directory
       mode: 0755
+    with_items:
+      - "{{ lab_directory }}" 
+      - "{{ lab_directory }}/ssh" 
+      - "{{ lab_directory }}/utilities" 
 
   - name: write static inventory file
     template:
@@ -56,12 +60,13 @@
 
   - name: write ansible lab config files
     template:
-      src: "templates/{{ item }}.j2"
-      dest: "{{ lab_directory }}/{{ item }}"
+      src: "templates/{{ item.file }}.j2"
+      dest: "{{ lab_directory }}/{{ item.directory }}{{item.file}}"
     with_items:  
-      - ansible.cfg
-      - ssh.cfg  
-      - ssh-jumpbox.cfg  
+      - { file: ansible.cfg,        directory: "" } 
+      - { file: ssh.cfg,            directory: ssh/ } 
+      - { file: ssh-jumpbox.cfg,    directory: ssh/  } 
+      - { file: docker_aliases.env, directory: utilities/ } 
     tags:
       - file_gen    
 
