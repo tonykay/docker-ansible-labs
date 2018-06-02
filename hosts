@@ -1,12 +1,2 @@
-[bastions]
-bastion 
-
-[frontends]
-frontend1 
-
-[apps]
-app1 
-app2
-
-[appdbs]
-appdb1
+[docker_control]
+docker_host ansible_host=127.0.0.1 ansible_connection=local

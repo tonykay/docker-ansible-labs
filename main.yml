@@ -1,6 +1,7 @@
 ---
-- name: create a docker ansible or other ssh based environment
+- name: create a docker ansible lab or other ssh based lab environment
   hosts: localhost
+  connection: local
   gather_facts: false
   become: false
   vars_files:
