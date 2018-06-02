@@ -1,16 +1,58 @@
-== Ansible Lab using Docker
+== Ansible Lab Environment using Docker
 
-Simple labs using docker and provisioned by Ansible for Ansible
+A lightweight Centos based Ansible Lab using Docker. 
 
-First container, `bastion` acts as a jumphost and includes pre-configured ssh.cfg
+Creates a Docker ssh container based lab fully configured with localhost to container netw
+
+* A bastion host/jumpbox 
+** by default using user vagrant and vagrant insecure key
+* An arbritrary number of centos/ssh containers
+* A lab directory, containing:
+[source,bash]
+----
+lab
+├── ansible.cfg
+├── inventory
+└── ssh.cfg
+----
+
+== Usage
+
+All access assumes localhost is the control node and has the necessary ssh
+key(s). By default it uses vagrant insecure key
+
+NOTE: the bastion host does *not* have a copy of this key so all `ssh` access is
+via 
+
+NOTE: The auto generated `ssh.cfg` uses ProxyJump in preference to ProxyCommand.
+This is a much cleaner syntax but if you are running a version of `ssh` prior to
+`OpenSSH 7.3`:
+* Seriously think about upgrading!
+* Use ProxyCommand instead, something like...
++
+[source,bash]
+----
+ProxyCommand ssh vagrant@bastion -W %h:%p
+----
+
+
+== Requirements
++
+[source,bash]
+----
+docker-py
+----
+== TODOdd
+** static inventory file
+** bare bones ansible.cfg
+** an ssh.cfg pre-configured 
+
 
 === Overview
 
-Labs come up with `ansible-playbook main.yml`
-The Dockerfile is there as a courtesy and is not used.
-Still a work in progress - including this readme!
+Brings up <n> docker containers all running ssh and using vagrant/vagrant insecure key.
 
-== TODO
+First container is `bastion` and acts as a jumphost for the remainder. 
 
-* setup a dynamic inventory?
-* add a  simple mount point?
+
+
