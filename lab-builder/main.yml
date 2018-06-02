@@ -61,9 +61,8 @@
     with_items:  
       - ansible.cfg
       - ssh.cfg  
-
-  - name: create lab main.yml only if absent from lab directory      
-
+    tags:
+      - file_gen    
 
 - name: smoke test lab
   hosts: all

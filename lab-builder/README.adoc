@@ -16,6 +16,12 @@ lab
 └── ssh.cfg
 ----
 
+== Requirements
++
+[source,bash]
+----
+docker-py
+----
 == TODOdd
 ** static inventory file
 ** bare bones ansible.cfg

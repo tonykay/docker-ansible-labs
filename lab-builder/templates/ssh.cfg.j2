@@ -1,10 +1,10 @@
 Host bastion
   HostName 127.0.0.1
 
+{% for item in lab_machines %}
+Host {{ item.name }}
+  Hostname {{ item.ip }}
 
-{%   for entry in groups[item] %}
-Host {{ entry }}
-  Hostname
 {%   endfor %}
 
 
