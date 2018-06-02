@@ -8,7 +8,7 @@
 
   tasks:
 
-  - name: create a {{ docker_network }} with options
+  - name: create lab network {{ docker_network }} with options
     docker_network:
       name: "{{ docker_network }}"
       driver_options:
@@ -16,6 +16,8 @@
       ipam_options:
         subnet: '172.3.26.0/16'
         gateway: 172.3.26.1
+    tags:
+      - create_lab_network
 
   - name: create lab hosts 
     docker_container:
@@ -36,6 +38,18 @@
       name: "{{ item.name }}"
       groups: "{{ item.group}}"
     with_items: "{{ lab_machines }}"
+    tags:
+      - create_in-memory_inventory
+
+  - name: write static inventory file
+    #become: yes
+    sudo: yes
+    template:
+      src: templates/lab_inventory.j2
+      dest: lab_inventory
+    tags:
+      - write_static_inventory
+
 
 - name: smoke test lab
   hosts: all
@@ -46,9 +60,3 @@
   - name: ping lab hosts
     ping:
 
-    #
-    #          - name: create file
-    #            become: yes
-    #            template:
-    #                src: ansible-hosts.j2
-    #                  dest: "{{ wm_inventory_file }}"  
