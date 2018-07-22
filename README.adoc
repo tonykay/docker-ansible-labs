@@ -1,7 +1,10 @@
 == Ansible Lab Environment using Docker
 
-A lightweight Centos based Ansible Lab using Docker. Creates a Docker ssh
-container based lab fully configured with localhost to container networking.
+A lightweight Centos based Ansible Lab using Docker. Creates a Docker centos
+container running `systemd` and `ssh` with a vagrant user and passwordless sudo.
+
+Ideal for a Ansible container based lab fully configured with localhost to
+container networking. *Not Ideal* for *Production*.
 
 You get:
 
