@@ -20,6 +20,10 @@ You get:
 ** lab-stop (via `docker stop` container names`)
 ** lab-destroy (via `docker rm container names`) 
 
+=== TODO
+* Write a cleaner ssh template
+** Use `Match User`
+
 === blueprints directory
 Contains example configurations. These can be consumed:
 [source,bash]

@@ -9,7 +9,7 @@ Host {{ item.name }}
 Host *
   ProxyJump bastion
   User vagrant
-  IdentityFile  ssh/insecure_private_key
+  IdentityFile  ssh/vagrant.private
   ControlMaster auto
   ControlPath /tmp/%h-%r
   ControlPersist 5m

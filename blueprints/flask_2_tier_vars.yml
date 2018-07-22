@@ -14,10 +14,11 @@ docker_gateway:       172.4.27.1
 
 # Use an ssh enabled docker container
 
-docker_image:         jdeathe/centos-ssh:centos-7
+#docker_image:         jdeathe/centos-ssh:centos-7
+docker_image:         tonykay/centos-systemd-ssh
 
 # Define your lab:
 
 lab_machines:
-  - { name: flask,    ip: 172.4.27.2, port_maps: "2423:22", group: flasks }
-  - { name: postgres, ip: 172.4.27.3, port_maps: "2424:22", group: databases }
+  - { name: flask,    ip: 172.4.27.2, port_maps: "2523:22", group: flasks }
+  - { name: postgres, ip: 172.4.27.3, port_maps: "2524:22", group: databases }

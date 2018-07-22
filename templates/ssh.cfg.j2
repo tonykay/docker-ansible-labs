@@ -7,7 +7,7 @@ Host {{ item.name }}
 Host *
   HostName 127.0.0.1
   User vagrant
-  IdentityFile  ssh/insecure_private_key
+  IdentityFile  ssh/vagrant.private
   ControlMaster auto
   ControlPath /tmp/%h-%r
   ControlPersist 5m

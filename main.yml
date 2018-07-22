@@ -22,6 +22,7 @@
     docker_container:
       name: "{{ item.name }}"
       image: "{{ docker_image }}"
+      privileged: yes
       ports:
         "{{ item.port_maps }}"
       networks:
@@ -55,13 +56,13 @@
 
   - name: copy vagrant key to lab/ssh
     fetch:
-      src: ./ssh/insecure_private_key
-      dest: "{{ lab_directory }}/ssh/insecure_private_key"
+      src: ./ssh/vagrant.private
+      dest: "{{ lab_directory }}/ssh/vagrant.private"
       flat: true
 
   - name: set vagrant insecure ssh key permissions
     file: 
-      path: "{{ lab_directory }}/ssh/insecure_private_key"
+      path: "{{ lab_directory }}/ssh/vagrant.private"
       mode: 0400
 
   - name: write ansible lab config files
