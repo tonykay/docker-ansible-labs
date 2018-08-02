@@ -1,9 +1,9 @@
-; {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
-{% for item in groups if item != "docker_control" %}
+{% for item in groups | sort if item != "docker_control" %}
 
 [{{item}}]
-{%   for entry in groups[item] if entry != "docker_host" %}
+{%   for entry in groups[item] | sort if entry != "docker_host" %}
 {{ entry }} 
 {%   endfor %}
 {% endfor %}
