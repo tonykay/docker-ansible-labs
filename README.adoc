@@ -88,6 +88,23 @@ lab $ ssh -F ssh/ssh.cfg <container-name>
 [source,bash]
 ----
 docker-py
+libselinux-python # For systems that have SELinux enabled such as Fedora, RHEL, and Centos
 ----
 
+== Known Limitations
+
+In order to run the playbook in a Python virtualenv in a system that has SELinux enabled,
+the virtualenv must be created with the `--system-site-packages` option to enable
+access to the global site-packages directory where the `libselinux-python` is installed.
+Example:
+[source,bash]
+----
+$ virtualenv --system-site-packages <venv_name>
+----
+
+or, if using `virtualenvwrapper`:
+[source,bash]
+----
+$ mkvirtualenv --system-site-packages <venv_name>
+----
 
