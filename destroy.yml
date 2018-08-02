@@ -1,0 +1,39 @@
+---
+- name: Destroy docker ansible lab
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+  vars_files:
+    - lab_vars.yml
+
+  tasks:
+    - block:
+      - name: Destroy lab containers 
+        docker_container:
+          name: "{{ item.name }}"
+          state: absent
+        with_items: "{{ lab_machines }}"
+    
+      - name: Delete Docker image
+        docker_image:
+          name: "{{ docker_image }}"
+          state: absent
+        when: destroy_docker_image == true
+    
+      - name: Destroy lab network {{ docker_network }}
+        docker_network:
+          name: "{{ docker_network }}"
+          state: absent
+        when: destroy_docker_network == true
+    
+      - name: Destroy lab structure
+        file:
+          path: "{{ item }}"
+          state: absent
+        with_items:
+          - "{{ lab_directory }}" 
+          - "{{ lab_directory }}/ssh" 
+          - "{{ lab_directory }}/utilities" 
+        when: destroy_files == true
+      when: destroy == true
