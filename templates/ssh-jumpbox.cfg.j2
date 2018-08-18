@@ -11,7 +11,7 @@ Host *
   User vagrant
   IdentityFile  ssh/vagrant.private
   ControlMaster auto
-  ControlPath /tmp/%h-%r
+  ControlPath /tmp/%h-%p-%r
   ControlPersist 5m
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no

@@ -1,6 +1,7 @@
 {% for item in lab_machines %}
 Host {{ item.name }}
   Port {{ item.port_maps | regex_replace('\:22','') }}
+  ControlPath /tmp/{{ item.name }}-%h-%r
 
 {%   endfor %}
 
@@ -9,7 +10,7 @@ Host *
   User vagrant
   IdentityFile  ssh/vagrant.private
   ControlMaster auto
-  ControlPath /tmp/%h-%r
+  ControlPath /tmp/%h-%p-%r
   ControlPersist 5m
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no

@@ -23,6 +23,10 @@ You get:
 ** lab-stop (via `docker stop` container names`)
 ** lab-destroy (via `docker rm container names`) 
 
+=== Notes
+
+. `ansible.cfg` is opiniated e.g. callback plugins, adjust to taste
+
 === TODO
 * Write a cleaner ssh template
 ** Use `Match User`
