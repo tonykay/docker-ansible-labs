@@ -4,8 +4,13 @@
   connection: local
   gather_facts: false
   become: false
-  vars_files:
-    - sample_lab_vars.yml  
+
+  vars:    
+    - lab_files:  
+      - { file: ansible.cfg,        directory: "" } 
+      - { file: ssh.cfg,            directory: ssh/ } 
+      - { file: ssh-jumpbox.cfg,    directory: ssh/  } 
+      - { file: docker_aliases.env, directory: utilities/ } 
 
   tasks:
 
@@ -36,7 +41,7 @@
   - name: create in-memory inventory
     add_host:
       name: "{{ item.name }}"
-      groups: "{{ item.group}}"
+      groups: "{{ item.group }}"
     with_items: "{{ lab_machines }}"
 
   - name: create lab structure
@@ -44,7 +49,7 @@
       path: "{{ item }}"
       state: directory
       mode: 0755
-    with_items:
+    loop:
       - "{{ lab_directory }}" 
       - "{{ lab_directory }}/ssh" 
       - "{{ lab_directory }}/utilities" 
@@ -64,13 +69,11 @@
     file: 
       path: "{{ lab_directory }}/ssh/vagrant.private"
       mode: 0400
-
+  
   - name: write ansible lab config files
     template:
       src: "templates/{{ item.file }}.j2"
-      dest: "{{ lab_directory }}/{{ item.directory }}{{item.file}}"
-    with_items:  
-      - { file: ansible.cfg,        directory: "" } 
-      - { file: ssh.cfg,            directory: ssh/ } 
-      - { file: ssh-jumpbox.cfg,    directory: ssh/  } 
-      - { file: docker_aliases.env, directory: utilities/ } 
+      dest: "{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
+    with_items:
+      - "{{ lab_files }}"
+
