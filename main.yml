@@ -38,6 +38,7 @@
       name: "{{ item.name }}"
       groups: "{{ item.group}}"
     with_items: "{{ lab_machines }}"
+    changed_when: false
 
   - name: create lab structure
     file:
