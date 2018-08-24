@@ -35,14 +35,14 @@ You get:
 Contains example configurations. These can be consumed:
 [source,bash]
 ----
-ansible-playbook main.yml -e @blueprints/flask_2_tier_vars.yml
+ansible-playbook lab_create.yml -e @blueprints/flask_2_tier_vars.yml
 ----
 
 
 == Usage and Workflow
 
 . Define your lab in `lab_vars.yml`
-. `ansible-playbook main.yml`
+. `ansible-playbook lab_create.yml`
 . That's it `labs/` contains:
 [source,bash]
 ----
