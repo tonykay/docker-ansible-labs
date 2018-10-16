@@ -1,0 +1,25 @@
+---
+ansible_managed:      This file was automatically created by Ansible, and may be over-written
+
+lab_name:         standalone
+
+# Where your lab env will be created (with inventory, ansible.cfg, ssh.cfg etc)
+
+
+lab_directory:        "lab-{{ lab_name }}"
+
+# Docker network vars:
+
+docker_network:       "{{ lab_name }}"
+docker_bridge_name:   "{{ lab_name }}_br"
+docker_subnet:        172.5.1.0/16
+docker_gateway:       172.5.1.1
+
+# Use a systemd ssh enabled docker container
+
+docker_image:         tonykay/centos-systemd-ssh
+
+# Define your lab:
+
+lab_machines:
+  - { name: standalone,    ip: 172.5.1.2, port_maps: "2523:22", group: target }

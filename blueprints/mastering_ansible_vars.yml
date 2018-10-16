@@ -1,0 +1,30 @@
+---
+ansible_managed:      This file was automatically created by Ansible, and may be over-written
+
+# Where your lab env will be created (with inventory, ansible.cfg, ssh.cfg etc)
+
+lab_directory:        lab
+
+# Docker network vars:
+
+docker_network:       three_tier_network
+docker_bridge_name:   3tier
+docker_subnet:        192.168.0.0/24
+docker_gateway:       192.168.0.1
+
+# Use an ssh enabled docker container
+
+#docker_image:         jdeathe/centos-ssh:centos-7
+docker_image:         tonykay/centos-systemd-ssh
+
+# Define your lab:
+
+lab_machines:
+  - { name: dnsmasq,    ip: 192.168.0.40, port_maps: "22:22",   group: bastions }
+  - { name: ubuntu-c,   ip: 192.168.0.41, port_maps: "22:22",   group: bastions }
+  - { name: ubuntu1,    ip: 192.168.0.42, port_maps: "22:22",   group: bastions }
+  - { name: ubuntu2,    ip: 192.168.0.43, port_maps: "22:22",   group: bastions }
+  - { name: ubuntu3,    ip: 192.168.0.44, port_maps: "22:22",   group: bastions }
+  - { name: centos1,    ip: 192.168.0.45, port_maps: "22:22",   group: bastions }
+  - { name: centos2,    ip: 192.168.0.46, port_maps: "22:22",   group: bastions }
+  - { name: centos3,    ip: 192.168.0.47, port_maps: "22:22",   group: bastions }
