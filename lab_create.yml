@@ -6,7 +6,7 @@
   become: false
 
   vars:    
-    - lab_files:  
+    lab_files:  
       - { file: ansible.cfg,        directory: "" } 
       - { file: ssh.cfg,            directory: ssh/ } 
       - { file: ssh-jumpbox.cfg,    directory: ssh/  } 
@@ -14,67 +14,67 @@
 
   tasks:
 
-  - name: create lab network {{ docker_network }} with options
-    docker_network:
-      name: "{{ docker_network }}"
-      driver_options:
-        com.docker.network.bridge.name: "{{ docker_bridge_name }}"
-      ipam_options:
-        subnet: "{{ docker_subnet }}"
-        gateway: "{{ docker_gateway }}"
+    - name: Create lab network {{ docker_network }} with options
+      docker_network:
+        name: "{{ docker_network }}"
+        driver_options:
+          com.docker.network.bridge.name: "{{ docker_bridge_name }}"
+        ipam_options:
+          subnet: "{{ docker_subnet }}"
+          gateway: "{{ docker_gateway }}"
 
-  - name: create lab hosts 
-    docker_container:
-      name: "{{ item.name }}"
-      image: "{{ docker_image }}"
-      privileged: yes
-      ports:
-        "{{ item.port_maps }}"
-      networks:
-        - name: "{{ docker_network }}"
-          ipv4_address: "{{ item.ip }}"
-      env:
-        SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
-        SSH_USER: vagrant
-    with_items: "{{ lab_machines }}"
+    - name: Create the individual lab hosts 
+      docker_container:
+        name: "{{ item.name }}"
+        image: "{{ item.docker_image }}"
+        privileged: yes
+        ports:
+          "{{ item.port_maps }}"
+        networks:
+          - name: "{{ docker_network }}"
+            ipv4_address: "{{ item.ip }}"
+        env:
+          SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
+          SSH_USER: vagrant
+      loop: "{{ lab_machines }}"
 
-  - name: create in-memory inventory
-    add_host:
-      name: "{{ item.name }}"
-      groups: "{{ item.group }}"
-    with_items: "{{ lab_machines }}"
-    changed_when: false
+    - name: Create in-memory inventory
+      add_host:
+        name: "{{ item.name }}"
+        groups: "{{ item.group }}"
+      with_items: "{{ lab_machines }}"
+      changed_when: false
 
-  - name: create lab structure
-    file:
-      path: "{{ item }}"
-      state: directory
-      mode: 0755
-    loop:
-      - "{{ lab_directory }}" 
-      - "{{ lab_directory }}/ssh" 
-      - "{{ lab_directory }}/utilities" 
+    - name: Create lab directory structure
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: 0755
+      loop:
+        - "{{ lab_directory }}" 
+        - "{{ lab_directory }}/ssh" 
+        - "{{ lab_directory }}/utilities" 
 
-  - name: write static inventory file
-    template:
-      src: templates/lab_inventory.j2
-      dest: "{{ lab_directory }}/hosts"
+    - name: Generate lab static inventory file
+      template:
+        src: templates/lab_inventory.j2
+        dest: "{{ lab_directory }}/hosts"
 
-  - name: copy vagrant key to lab/ssh
-    fetch:
-      src: ./ssh/vagrant.private
-      dest: "{{ lab_directory }}/ssh/vagrant.private"
-      flat: true
+    - name: Copy vagrant key to lab/ssh
+      fetch:
+        src: ./ssh/vagrant.private
+        dest: "{{ lab_directory }}/ssh/vagrant.private"
+        flat: true
 
-  - name: set vagrant insecure ssh key permissions
-    file: 
-      path: "{{ lab_directory }}/ssh/vagrant.private"
-      mode: 0400
-  
-  - name: write ansible lab config files
-    template:
-      src: "templates/{{ item.file }}.j2"
-      dest: "{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
-    with_items:
-      - "{{ lab_files }}"
+    - name: Set vagrant insecure ssh key permissions
+      file: 
+        path: "{{ lab_directory }}/ssh/vagrant.private"
+        mode: 0400
+    
+    - name: write ansible lab config files
+      template:
+        src: "templates/{{ item.file }}.j2"
+        dest: "{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
+      with_items:
+        - "{{ lab_files }}"
 
