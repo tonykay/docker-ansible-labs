@@ -4,6 +4,6 @@
 
 [{{item}}]
 {%   for entry in groups[item] | sort if entry != "docker_host" %}
-{{ entry }} 
+{{ entry }} ansible_host={{ hostvars[entry].ansible_ssh_host }} 
 {%   endfor %}
 {% endfor %}

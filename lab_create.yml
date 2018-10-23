@@ -26,7 +26,7 @@
     - name: Create the individual lab hosts 
       docker_container:
         name: "{{ item.name }}"
-        image: "{{ item.docker_image }}"
+        image: "{{ docker_image }}"
         privileged: yes
         ports:
           "{{ item.port_maps }}"
@@ -42,6 +42,7 @@
       add_host:
         name: "{{ item.name }}"
         groups: "{{ item.group }}"
+        ansible_ssh_host: "{{ item.ip }}"
       with_items: "{{ lab_machines }}"
       changed_when: false
 
