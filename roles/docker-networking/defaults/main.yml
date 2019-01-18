@@ -1,0 +1,5 @@
+---
+docker_network:       docker_default_network
+docker_bridge_name:   docker_default_bridge
+docker_subnet:        172.3.26.0/16
+docker_gateway:       172.3.26.1

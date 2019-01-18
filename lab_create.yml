@@ -12,16 +12,10 @@
       - { file: ssh-jumpbox.cfg,    directory: ssh/  } 
       - { file: docker_aliases.env, directory: utilities/ } 
 
+  roles:
+    - docker-networking
+  
   tasks:
-
-    - name: Create lab network {{ docker_network }} with options
-      docker_network:
-        name: "{{ docker_network }}"
-        driver_options:
-          com.docker.network.bridge.name: "{{ docker_bridge_name }}"
-        ipam_options:
-          subnet: "{{ docker_subnet }}"
-          gateway: "{{ docker_gateway }}"
 
     - name: Create the individual lab hosts 
       docker_container:
