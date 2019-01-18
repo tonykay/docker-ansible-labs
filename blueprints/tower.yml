@@ -1,0 +1,24 @@
+---
+ansible_managed:      This file was automatically created by Ansible, and may be over-written
+
+lab_name:         tower
+
+# Where your lab env will be created (with inventory, ansible.cfg, ssh.cfg etc)
+
+lab_directory:        "lab-{{ lab_name }}"
+
+# Docker network vars:
+
+docker_network:       three_tier_network
+docker_bridge_name:   3tier
+docker_subnet:        172.3.26.0/16
+docker_gateway:       172.3.26.1
+
+# Use a systemd ssh enabled docker container
+
+docker_image:         tonykay/centos-systemd-ssh
+
+# Define your lab:
+
+lab_machines:
+  - { name: tower,    ip: 172.3.26.18, port_maps: ["2523:22", "443:443"], group: target }

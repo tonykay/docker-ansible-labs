@@ -5,8 +5,8 @@
   gather_facts: false
   become: false
 
-  vars:
-    lab_files:
+  vars:    
+    lab_files:  
       - { file: ansible.cfg,        directory: "" } 
       - { file: ssh.cfg,            directory: ssh/ } 
       - { file: ssh-jumpbox.cfg,    directory: ssh/  } 
@@ -48,9 +48,7 @@
 
     - name: play with new in-memory inventory
       debug:
-        msg: 
-          - "IP address of frontend is {{ hostvars['frontend1']['ansible_ssh_host'] }}"
-          - "IP address of frontend is {{ hostvars[groups['apps'][0]]['ansible_ssh_host'] }}"
+        msg: "IP address of frontend is {{ hostvars['frontend1']['ansible_ssh_host'] }}"
 
 
     - name: Create lab directory structure

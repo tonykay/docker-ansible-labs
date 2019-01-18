@@ -1,0 +1,12 @@
+#
+# Ansible managed
+#
+
+
+[all]
+tower ansible_host=172.3.26.18 
+
+[target]
+tower ansible_host=172.3.26.18 
+
+[ungrouped]
