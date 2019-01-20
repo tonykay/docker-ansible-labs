@@ -1,0 +1,15 @@
+---
+- name: Create in-memory inventory
+  add_host:
+    name: "{{ item.name }}"
+    groups: "{{ item.group }}"
+    ansible_ssh_host: "{{ item.ip }}"
+  loop: "{{ lab_machines }}"
+
+- name: play with new in-memory inventory
+  debug:
+    msg: 
+      - "IP address of frontend is {{ hostvars['frontend1']['ansible_ssh_host'] }}"
+      - "IP address of wapp1 frontend is {{ hostvars[groups['apps'][0]]['ansible_ssh_host'] }}"
+    verbosity: 2     
+...

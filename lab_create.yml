@@ -1,81 +1,13 @@
 ---
-- name: create a docker ansible lab or other ssh based lab environment
+- name: Create a docker ansible lab or other ssh based lab environment
   hosts: localhost
   connection: local
   gather_facts: false
   become: false
 
-  vars:
-    lab_files:
-      - { file: ansible.cfg,        directory: "" } 
-      - { file: ssh.cfg,            directory: ssh/ } 
-      - { file: ssh-jumpbox.cfg,    directory: ssh/  } 
-      - { file: docker_aliases.env, directory: utilities/ } 
-
   roles:
-    - docker-networking
-  
-  tasks:
-
-    - name: Create the individual lab hosts 
-      docker_container:
-        name: "{{ item.name }}"
-        image: "{{ docker_image }}"
-        privileged: yes
-        ports:
-          "{{ item.port_maps }}"
-        networks:
-          - name: "{{ docker_network }}"
-            ipv4_address: "{{ item.ip }}"
-        env:
-          SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
-          SSH_USER: vagrant
-      loop: "{{ lab_machines }}"
-
-    - name: Create in-memory inventory
-      add_host:
-        name: "{{ item.name }}"
-        groups: "{{ item.group }}"
-        ansible_ssh_host: "{{ item.ip }}"
-      loop: "{{ lab_machines }}"
-      #changed_when: false
-
-    - name: play with new in-memory inventory
-      debug:
-        msg: 
-          - "IP address of frontend is {{ hostvars['frontend1']['ansible_ssh_host'] }}"
-          - "IP address of frontend is {{ hostvars[groups['apps'][0]]['ansible_ssh_host'] }}"
-
-
-    - name: Create lab directory structure
-      file:
-        path: "{{ item }}"
-        state: directory
-        mode: 0755
-      loop:
-        - "{{ lab_directory }}" 
-        - "{{ lab_directory }}/ssh" 
-        - "{{ lab_directory }}/utilities" 
-
-    - name: Generate lab static inventory file
-      template:
-        src: templates/lab_inventory.j2
-        dest: "{{ lab_directory }}/hosts"
-
-    - name: Copy vagrant key to lab/ssh
-      fetch:
-        src: ./ssh/vagrant.private
-        dest: "{{ lab_directory }}/ssh/vagrant.private"
-        flat: true
-
-    - name: Set vagrant insecure ssh key permissions
-      file: 
-        path: "{{ lab_directory }}/ssh/vagrant.private"
-        mode: 0400
-    
-    - name: write ansible lab config files
-      template:
-        src: "templates/{{ item.file }}.j2"
-        dest: "{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
-      loop: "{{ lab_files }}"
-
+    - create-docker-networks
+    - create-docker-instances
+    - create-inventory
+    - create-lab-directory
+...
