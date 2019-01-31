@@ -11,12 +11,12 @@
 
 - name: Generate lab static inventory file
   template:
-    src: templates/lab_inventory.j2
+    src: lab_inventory.j2
     dest: "{{ lab_directory }}/hosts"
 
 - name: Copy vagrant key to lab/ssh
-  fetch:
-    src: ./ssh/vagrant.private
+  copy:
+    src: vagrant.private
     dest: "{{ lab_directory }}/ssh/vagrant.private"
     flat: true
 
@@ -27,7 +27,7 @@
 
 - name: Write ansible lab config files
   template:
-    src: "templates/{{ item.file }}.j2"
+    src: "{{ item.file }}.j2"
     dest: "{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
   loop: "{{ lab_files }}"
 
