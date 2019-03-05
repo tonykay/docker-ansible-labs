@@ -14,5 +14,5 @@
 
     - name: Output bastion facts
       debug:
-        var: (r_docker_containers | to_nice_json  )
+        msg: "{{ (r_docker_containers | to_nice_json  )}}"
 ...

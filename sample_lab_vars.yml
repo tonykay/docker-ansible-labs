@@ -19,11 +19,11 @@ docker_image:         jdeathe/centos-ssh:centos-7
 # Define your lab:
 
 lab_machines:
-  - { name: bastion,    ip: 172.3.26.2, port_maps: "22:22",   group: bastions }
-  - { name: frontend1,  ip: 172.3.26.3, port_maps: "2223:22", group: frontends }
-  - { name: app1,       ip: 172.3.26.4, port_maps: "2224:22", group: apps }
-  - { name: app2,       ip: 172.3.26.5, port_maps: "2225:22", group: apps }
-  - { name: appdb1,     ip: 172.3.26.6, port_maps: "2226:22", group: appdbs }
+  - { name: bastion,    ip: 172.3.26.2, ssh_port_map: "2222:22",   group: bastions }
+  - { name: frontend1,  ip: 172.3.26.3, ssh_port_map: "2223:22", group: frontends }
+  - { name: app1,       ip: 172.3.26.4, ssh_port_map: "2224:22", group: apps }
+  - { name: app2,       ip: 172.3.26.5, ssh_port_map: "2225:22", group: apps }
+  - { name: appdb1,     ip: 172.3.26.6, ssh_port_map: "2226:22", exposed_port_map: "5432:5432", group: appdbs }
 
 ## Cleanup Options
 destroy: true

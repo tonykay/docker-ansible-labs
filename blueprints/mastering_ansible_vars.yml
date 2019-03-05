@@ -20,11 +20,11 @@ docker_image:         tonykay/centos-systemd-ssh
 # Define your lab:
 
 lab_machines:
-  - { name: dnsmasq,  ip: 192.168.0.40, port_maps: "22:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
-  - { name: ubuntu-c, ip: 192.168.0.41, port_maps: "2223:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
-  - { name: ubuntu1,  ip: 192.168.0.42, port_maps: "2224:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
-  - { name: ubuntu2,  ip: 192.168.0.43, port_maps: "2225:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
-  - { name: ubuntu3,  ip: 192.168.0.44, port_maps: "2226:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
-  - { name: centos1,  ip: 192.168.0.45, port_maps: "2227:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
-  - { name: centos2,  ip: 192.168.0.46, port_maps: "2228:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
-  - { name: centos3,  ip: 192.168.0.47, port_maps: "2229:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: dnsmasq,  ip: 192.168.0.40, ssh_port_map: "22:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: ubuntu-c, ip: 192.168.0.41, ssh_port_map: "2223:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: ubuntu1,  ip: 192.168.0.42, ssh_port_map: "2224:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: ubuntu2,  ip: 192.168.0.43, ssh_port_map: "2225:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: ubuntu3,  ip: 192.168.0.44, ssh_port_map: "2226:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: centos1,  ip: 192.168.0.45, ssh_port_map: "2227:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: centos2,  ip: 192.168.0.46, ssh_port_map: "2228:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
+  - { name: centos3,  ip: 192.168.0.47, ssh_port_map: "2229:22", docker_image: tonykay/centos-systemd-ssh, group: bastions }
