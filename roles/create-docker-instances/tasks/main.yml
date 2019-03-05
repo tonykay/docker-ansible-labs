@@ -4,8 +4,7 @@
     name: "{{ item.name }}"
     image: "{{ docker_image }}"
     privileged: yes
-    ports:
-      "{{ item.port_maps }}"
+    published_ports: "{{ (( item.ssh_port_map | default()) + ( ',' + item.exposed_port_map | default())) | regex_replace(',$', '') }}"
     networks:
       - name: "{{ docker_network }}"
         ipv4_address: "{{ item.ip }}"

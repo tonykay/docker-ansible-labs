@@ -4,24 +4,12 @@
   connection: local
   gather_facts: false
   become: false
+  vars_files:
+    - blueprints/three_tier_vars.yml
 
   roles:
     - create-docker-networks
     - create-docker-instances
     - create-inventory
-    - create-lab-directory
-
-  tasks:   
-
-    - name: Get the docker container facts
-      docker_container_facts:
-        name: bastion
-      register: r_docker_container_facts
-      
-    - name: Output the docker container facts
-      debug:
-        var: r_docker_container_facts
-      tags:
-        - docker_facts
-
+    - create-lab-structure
 ...

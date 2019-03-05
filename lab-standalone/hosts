@@ -1,0 +1,12 @@
+#
+# Ansible managed
+#
+
+
+[all]
+standalone ansible_host=172.5.1.2 
+
+[target]
+standalone ansible_host=172.5.1.2 
+
+[ungrouped]

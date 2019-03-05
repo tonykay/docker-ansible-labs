@@ -1,0 +1,2 @@
+ssh file annoying in ssh/
+* Move to <lab>/ssh.cfg

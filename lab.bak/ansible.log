@@ -1,0 +1,21 @@
+2019-01-14 12:20:13,793 passlib.registry registered 'md5_crypt' handler: <class 'passlib.handlers.md5_crypt.md5_crypt'>
+2019-01-14 12:20:15,453 p=86131 u=tok |  frontend1 | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+2019-01-14 12:20:15,467 p=86131 u=tok |  bastion | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+2019-01-14 12:20:15,473 p=86131 u=tok |  appdb1 | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+2019-01-14 12:20:15,481 p=86131 u=tok |  app1 | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}
+2019-01-14 12:20:15,490 p=86131 u=tok |  app2 | SUCCESS => {
+    "changed": false, 
+    "ping": "pong"
+}

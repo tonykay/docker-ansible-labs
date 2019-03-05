@@ -1,6 +1,6 @@
 {% for item in lab_machines %}
-Host {{ item.name }}
-  Port {{ item.port_maps | regex_replace('\:22','') }}
+Host {{ item.name }} {{ item.ip }}
+  Port {{ item.ssh_port_map | regex_replace('\:22','') }}
   ControlPath /tmp/{{ item.name }}-%h-%r
 
 {%   endfor %}
@@ -12,5 +12,4 @@ Host *
   ControlMaster auto
   ControlPath /tmp/%h-%p-%r
   ControlPersist 5m
-  UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
