@@ -1,0 +1,18 @@
+---
+- name: Create a docker ansible lab or other ssh based lab environment
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  tasks: 
+
+    - name: Get docker facts
+      docker_container_facts:
+        name: appdb2
+      register: r_docker_containers  
+
+    - name: Output bastion facts
+      debug:
+        var: (r_docker_containers | to_nice_json  )
+...
