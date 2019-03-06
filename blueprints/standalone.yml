@@ -22,4 +22,7 @@ docker_image:         tonykay/centos-systemd-ssh
 # Define your lab:
 
 lab_machines:
-  - { name: standalone, ip: 172.5.1.2, ssh_port_map: "2523:22", group: target }
+  - name: standalone
+    ip: 172.5.1.2
+    ssh_port_map: "2623:22"
+    group: target
