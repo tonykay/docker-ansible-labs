@@ -20,5 +20,13 @@ docker_image:         tonykay/centos-systemd-ssh
 # Define your lab:
 
 lab_machines:
-  - { name: flask,    ip: 172.4.27.2, port_maps: "2523:22", group: flasks }
-  - { name: postgres, ip: 172.4.27.3, port_maps: "2524:22,5432:5432", group: databases }
+  -  name: flask    
+     ip: 172.4.27.2 
+     group: flasks 
+     ssh_port_map: "2523:22"
+  
+  -  name: postgres 
+     ip: 172.4.27.3 
+     group: databases 
+     ssh_port_map: "2524:22"
+     exposed_port_map: "5432:5432"
