@@ -1,11 +1,11 @@
 ---
-- name: Create a docker ansible lab or other ssh based lab environment
+- name: Create a docker based ssh based lab environment - e.g. for Ansible
   hosts: localhost
   connection: local
   gather_facts: false
   become: false
   vars_files:
-    - blueprints/three_tier_vars.yml
+    - blueprints/three_tier_vars.yml  # Default, over-ride -e @blueprints/<foo>
 
   roles:
     - create-docker-networks

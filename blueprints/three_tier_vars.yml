@@ -52,3 +52,4 @@ lab_machines:
     ip: 172.3.26.7
     ssh_port_map: "2227:22"
     exposed_port_map: "8081:80"
+...
