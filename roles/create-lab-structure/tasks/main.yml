@@ -5,9 +5,9 @@
     state: directory
     mode: 0755
   loop:
-    - "labs/{{ lab_directory }}" 
-    - "labs/{{ lab_directory }}/ssh" 
-    - "labs/{{ lab_directory }}/utilities" 
+    - "labs/{{ lab_directory }}"
+    - "labs/{{ lab_directory }}/ssh"
+    - "labs/{{ lab_directory }}/utilities"
 
 - name: Generate lab static inventory file
   template:
@@ -20,7 +20,7 @@
     dest: "labs/{{ lab_directory }}/ssh/vagrant.private"
 
 - name: Set vagrant insecure ssh key permissions
-  file: 
+  file:
     path: "labs/{{ lab_directory }}/ssh/vagrant.private"
     mode: 0400
 
@@ -29,4 +29,4 @@
     src: "{{ item.file }}.j2"
     dest: "labs/{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
   loop: "{{ lab_files }}"
-
+...
