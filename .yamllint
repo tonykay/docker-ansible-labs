@@ -1,0 +1,4 @@
+rules:
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 10

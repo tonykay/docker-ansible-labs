@@ -1,0 +1,19 @@
+---
+- name: Create a docker based ssh based lab environment - e.g. for Ansible
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: false
+
+  tasks:
+
+    - name: Get docker facts
+      docker_host_info:
+      register: r_docker_facts
+
+    - name: Output docker_facts    
+      import_role:
+        name: print-register
+      vars: 
+        my_register: "{{ r_docker_facts }}"  
+...
