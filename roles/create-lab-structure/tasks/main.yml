@@ -1,9 +1,9 @@
 ---
 - name: Create lab directory structure
   file:
-    path: "{{ item }}"
-    state: directory
-    mode: 0755
+    path:     "{{ item }}"
+    state:    directory
+    mode:     0755
   loop:
     - "labs/{{ lab_directory }}"
     - "labs/{{ lab_directory }}/ssh"
@@ -11,22 +11,22 @@
 
 - name: Generate lab static inventory file
   template:
-    src: lab_inventory.j2
-    dest: "labs/{{ lab_directory }}/hosts"
+    src:      lab_inventory.j2
+    dest:     "labs/{{ lab_directory }}/hosts"
 
 - name: Copy vagrant key to lab/ssh
   copy:
-    src: vagrant.private
-    dest: "labs/{{ lab_directory }}/ssh/vagrant.private"
+    src:      vagrant.private
+    dest:     "labs/{{ lab_directory }}/ssh/vagrant.private"
 
 - name: Set vagrant insecure ssh key permissions
   file:
-    path: "labs/{{ lab_directory }}/ssh/vagrant.private"
-    mode: 0400
+    path:     "labs/{{ lab_directory }}/ssh/vagrant.private"
+    mode:     0400
 
 - name: Write ansible lab config files
   template:
-    src: "{{ item.file }}.j2"
-    dest: "labs/{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
-  loop: "{{ lab_files }}"
+    src:     "{{ item.file }}.j2"
+    dest:    "labs/{{ lab_directory }}/{{ item.directory }}/{{ item.file }}"
+  loop:     "{{ lab_files }}"
 ...

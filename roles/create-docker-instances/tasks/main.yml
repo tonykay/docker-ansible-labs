@@ -1,15 +1,15 @@
 ---
 - name: Create the individual lab hosts 
   docker_container:
-    name: "{{ item.name }}"
-    image: "{{ docker_image }}"
-    privileged: yes
-    published_ports: "{{ (( item.ssh_port_map | default()) + ( ',' + item.exposed_port_map | default())) | regex_replace(',$', '') }}"
+    name:               "{{ item.value.name }}"
+    image:              "{{ docker_image }}"
+    privileged:         yes
+    published_ports:    "{{ (( item.value.ssh_port_map | default()) + ( ',' + item.exposed_port_map | default())) | regex_replace(',$', '') }}"
     networks:
-      - name: "{{ docker_network }}"
-        ipv4_address: "{{ item.ip }}"
+      - name:           "{{ docker_network }}"
+        ipv4_address:   "{{ item.value.ip }}"
     env:
-      SSH_SUDO: ALL=(ALL) NOPASSWD:ALL
-      SSH_USER: vagrant
-  loop: "{{ lab_machines }}"
+      SSH_SUDO:         ALL=(ALL) NOPASSWD:ALL
+      SSH_USER:         vagrant
+  with_dict:            "{{ lab_machines }}"
 ...
