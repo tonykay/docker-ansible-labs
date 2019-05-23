@@ -1,9 +1,9 @@
-{% for server in lab_machines.server %}
+{% for server in lab_machines %}
 Host {{ server.name }} {{ server.ip }}
   Port {{ server.ssh_port_map | regex_replace('\:22','') }}
   ControlPath /tmp/{{ server.name }}-%h-%r
 
-{%   endfor %}
+{% endfor %}
 
 Host *
   HostName 127.0.0.1
