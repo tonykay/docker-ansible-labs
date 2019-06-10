@@ -7,7 +7,7 @@
   vars_files:
     - blueprints/three_tier_vars.yml  # Default, over-ride -e @blueprints/<foo>
 
-  roles:
+    - roles:
     - create-docker-networks
     - create-docker-instances
     - create-inventory
