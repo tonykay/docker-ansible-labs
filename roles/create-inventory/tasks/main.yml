@@ -1,8 +1,11 @@
 ---
 - name: Create in-memory inventory
   add_host:
-    name: "{{ item.name }}"
-    groups: "{{ item.group }}"
-    ansible_ssh_host: "{{ item.ip }}"
-  loop: "{{ lab_machines }}"
+    name:               "{{ container.name }}"
+    groups:             "{{ container.group }}"
+    ansible_ssh_host:   "{{ container.ip }}"
+  loop:                 "{{ lab_machines }}"
+  loop_control:
+    loop_var:           container
+
 ...
