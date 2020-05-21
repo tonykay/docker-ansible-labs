@@ -1,3 +1,7 @@
+#plugin: docker_machine
+plugin: docker_swarm
+docker_host: unix://var/run/docker.sock
+
 # This is the configuration file for the Docker inventory script: docker_inventory.py.
 #
 # You can define the following in this file:
